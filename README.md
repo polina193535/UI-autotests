@@ -11,14 +11,14 @@
 - **Описание**: Проверка корректной отправки формы при правильном заполнении всех обязательных полей верными данными.
 - **Предусловия**: Пользователь открыл старинцу формы.
 - **Шаги**:
-  1. Ввести в поле **Name**: `Ivan`.  
-  2. Ввести в поле **Password**: `hello123`.  
-  3. Выбрать **What is your favorite drink?**: `Milk`, `Coffee`.  
-  4. Выбрать **What is your favorite color?**:`Yellow`.  
-  5. Выбрать **Do you like automation?**: `Yes`.  
-  6. Ввести в поле **Email**:  `i_goldmen@gmail.com`.  
-  7. Ввести в поле **Message**: `4 tools, webdriver-manager`.  
-  8. Нажать кнопку **Submit**. 
+1. Ввести в поле **Name**: `Ivan`  
+2. Ввести в поле **Password**: `hello123`  
+3. Выбрать **What is your favorite drink?**: `Milk`, `Coffee`  
+4. Выбрать **What is your favorite color?**:`Yellow`  
+5. Выбрать **Do you like automation?**: `Yes`.  
+6. Ввести в поле **Email**:  `i_goldmen@gmail.com`  
+7. Ввести в поле **Message**: `5 tools, Katalon Studio`  
+8. Нажать кнопку **Submit**. 
 - **Ожидаемый результат**: Появляется alert с текстом: `Message received!`
 - **Фактический результат**: Появляется alert с текстом: `Message received!`
 - **Статус**: Пройден
@@ -32,14 +32,14 @@
 - **Описание**: Проверка поведения формы, если не заполнить поле `Name`
 - **Предусловия**: Пользователь открыл старинцу формы.
 - **Шаги**:
-  1. Не зполнять поле `Name`.  
-  2. Ввести в поле **Password**: `hello123`. 
-  3. Выбрать **What is your favorite drink?**: `Milk`, `Coffee`.  
-  4. Выбрать **What is your favorite color?**: `Yellow`.  
-  5. Выбрать **Do you like automation?**: `Yes`.  
-  6. Ввести в поле **Email**: `i_goldmen@gmail.com`.   
-  7. Ввести в поле **Message**: `4 tools, webdriver-manager`.  
-  8. Нажать кнопку **Submit**. 
+1. Не зполнять поле `Name` 
+2. Ввести в поле **Password**: `hello123`
+3. Выбрать **What is your favorite drink?**: `Milk`, `Coffee`
+4. Выбрать **What is your favorite color?**: `Yellow`  
+5. Выбрать **Do you like automation?**: `Yes`  
+6. Ввести в поле **Email**: `i_goldmen@gmail.com`   
+7. Ввести в поле **Message**: `5 tools, Katalon Studio`  
+8. Нажать кнопку **Submit** 
 - **Ожидаемый результат**: 
 - Форма не отправляется. 
 - Фокус возвращается на поле `Name`
