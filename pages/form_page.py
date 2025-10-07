@@ -2,92 +2,89 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select, WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+
 class FormPage:
     URL = "https://practice-automation.com/form-fields/"
 
     def __init__(self, driver):
         self.driver = driver
         self.driver.get(self.URL)
+        # Page Factory: элементы инициализируются через свойства
+        self._wait = WebDriverWait(self.driver, 10)
 
-    # Локаторы
-    NAME = (By.ID, "name-input")
-    PASSWORD = (By.XPATH, "//label[contains(text(),'Password')]/input")
-    EMAIL = (By.ID, "email")
-    MESSAGE = (By.ID, "message")
-    SUBMIT = (By.ID, "submit-btn")
+    @property
+    def name_input(self):
+        return self._wait.until(EC.visibility_of_element_located((By.ID, "name-input")))
 
-    # Вспомогательный метод для сильного скролла и клика через JS
-    def _scroll_and_click(self, element):
-        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center', behavior: 'auto'});", element)
-        self.driver.execute_script("arguments[0].click();", element)
-
-    # Методы
-    def enter_name(self, name: str):
-        elem = WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.NAME)
+    @property
+    def password_input(self):
+        return self._wait.until(
+            EC.visibility_of_element_located(
+                (By.XPATH, "//label[contains(text(),'Password')]/input")
+            )
         )
-        elem.clear()
-        elem.send_keys(name)
+
+    @property
+    def email_input(self):
+        return self._wait.until(EC.visibility_of_element_located((By.ID, "email")))
+
+    @property
+    def message_input(self):
+        return self._wait.until(EC.visibility_of_element_located((By.ID, "message")))
+
+    @property
+    def submit_btn(self):
+        return self._wait.until(EC.element_to_be_clickable((By.ID, "submit-btn")))
+
+    def enter_name(self, name: str):
+        self.name_input.clear()
+        self.name_input.send_keys(name)
         return self
 
     def enter_password(self, password: str):
-        elem = WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.PASSWORD)
-        )
-        elem.clear()
-        elem.send_keys(password)
+        self.password_input.clear()
+        self.password_input.send_keys(password)
         return self
 
     def select_drinks(self, drinks: list):
         for drink in drinks:
-            checkbox = WebDriverWait(self.driver, 10).until(
+            checkbox = self._wait.until(
                 EC.element_to_be_clickable(
                     (By.XPATH, f"//input[@name='fav_drink' and @value='{drink}']")
                 )
             )
-            self._scroll_and_click(checkbox)
+            self.driver.execute_script("arguments[0].click();", checkbox)
         return self
 
     def select_color(self, color_name: str):
-        radio = WebDriverWait(self.driver, 10).until(
+        radio = self._wait.until(
             EC.element_to_be_clickable(
                 (By.XPATH, f"//input[@type='radio' and @value='{color_name}']")
             )
         )
-        self._scroll_and_click(radio)
+        self.driver.execute_script("arguments[0].click();", radio)
         return self
 
     def select_like_automation(self, value: str):
-        select_elem = WebDriverWait(self.driver, 10).until(
+        select_elem = self._wait.until(
             EC.element_to_be_clickable((By.ID, "automation"))
         )
-        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center', behavior: 'auto'});", select_elem)
         select = Select(select_elem)
         select.select_by_visible_text(value)
         return self
 
     def enter_email(self, email: str):
-        elem = WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.EMAIL)
-        )
-        elem.clear()
-        elem.send_keys(email)
+        self.email_input.clear()
+        self.email_input.send_keys(email)
         return self
 
     def enter_message(self, message: str):
-        elem = WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.MESSAGE)
-        )
-        elem.clear()
-        elem.send_keys(message)
+        self.message_input.clear()
+        self.message_input.send_keys(message)
         return self
 
     def submit(self):
-        submit_btn = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(self.SUBMIT)
-        )
-        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center', behavior: 'auto'});", submit_btn)
-        self.driver.execute_script("arguments[0].click();", submit_btn)
+        self.driver.execute_script("arguments[0].click();", self.submit_btn)
         return self
 
     def get_alert_text(self):
