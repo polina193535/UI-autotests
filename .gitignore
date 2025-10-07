@@ -23,7 +23,6 @@ env/
 .pytest_cache/
 
 # Allure reports
-allure-report/
 allure-results/
 
 # OS files
